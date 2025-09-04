@@ -17,6 +17,7 @@
   <button class="fullscreen-close" onclick="closeFullscreen()">&times;</button>
   <div class="fullscreen-content">
     <img id="fullscreenImage" src="" alt="">
+        <p>Для закрытия нажмите на любое место вне фото.</p>
   </div>
 </div>
 
@@ -88,7 +89,7 @@
   
   <p>Днём — глянец и яркие краски.</p>
   <p>В темноте — сцены начинают светиться и производить «вау-эффект».</p>
-  <p class="price"><b>Цена за комплект для подписчиков:</b> <br>  2 990-7 950 ₽.(В зависимости от комплекта)</p>
+  <p class="price"><b>Цена за комплект для подписчиков:</b>  2 990-7 950 ₽.(В зависимости от комплекта)</p>
 </section>
 
 <!-- Условия -->
@@ -183,8 +184,94 @@
     <img id="fullscreenImage" src="" alt="Fullscreen">
   </div>
 </div>
+<script>
+// ==================== Fullscreen Gallery ====================
+const fullscreenModal = document.getElementById("fullscreenModal");
+const fullscreenImage = document.getElementById("fullscreenImage");
+const fullscreenClose = document.getElementById("fullscreenClose");
+
+function openFullscreen(img) {
+  fullscreenImage.src = img.src;
+  fullscreenModal.classList.add("active");
+  document.body.style.overflow = "hidden"; // scroll lock
+}
+
+function closeFullscreen() {
+  fullscreenModal.classList.remove("active");
+  fullscreenImage.src = "";
+  document.body.style.overflow = "auto";
+}
+
+fullscreenClose.addEventListener("click", closeFullscreen);
+fullscreenModal.addEventListener("click", e => {
+  if (e.target === fullscreenModal) closeFullscreen();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeFullscreen();
+});
+
+// ==================== Carousel ====================
+function initCarousel(id) {
+  const carousel = document.getElementById(id);
+  const container = carousel.querySelector(".carousel-container");
+  const items = carousel.querySelectorAll(".carousel-item");
+  const dotsContainer = carousel.querySelector(".carousel-dots");
+
+  let index = 0;
+
+  // create dots
+  items.forEach((_, i) => {
+    const dot = document.createElement("span");
+    dot.classList.add("carousel-dot");
+    if (i === 0) dot.classList.add("active");
+    dot.addEventListener("click", () => showSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function showSlide(i) {
+    index = (i + items.length) % items.length;
+
+    // activate item
+    items.forEach((item, j) => {
+      item.classList.toggle("active", j === index);
+    });
+
+    // activate dot
+    dotsContainer.querySelectorAll(".carousel-dot").forEach((d, j) => {
+      d.classList.toggle("active", j === index);
+    });
+  }
+
+  window.changeSlide = function (id, dir) {
+    const car = document.getElementById(id);
+    const items = car.querySelectorAll(".carousel-item");
+    const dots = car.querySelectorAll(".carousel-dot");
+    let current = [...items].findIndex(item => item.classList.contains("active"));
+    let newIndex = (current + dir + items.length) % items.length;
+
+    items.forEach((item, j) => item.classList.toggle("active", j === newIndex));
+    dots.forEach((d, j) => d.classList.toggle("active", j === newIndex));
+  };
+
+  showSlide(0);
+}
+initCarousel("imageCarousel");
+
+// ==================== Lazy Load ====================
+document.querySelectorAll("iframe, img").forEach(el => {
+  el.loading = "lazy";
+});
+
+// ==================== Smooth Scroll ====================
+document.querySelectorAll("a[href^='#']").forEach(link => {
+  link.addEventListener("click", function(e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute("href"))
+      .scrollIntoView({ behavior: "smooth" });
+  });
+});
+</script>
 
 </div>
 </body>
 </html>
-
