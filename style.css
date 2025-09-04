@@ -6,11 +6,12 @@
 }
 
 :root {
-  --primary-green: #0c701f;       /* խորը կանաչ */
-  --dark-green: #074713;          /* մուգ անտառի կանաչ */
-  --emerald-green: #1fbf63;       /* զմրուխտի կանաչ */
-  --mint-green: #6fe7a0;          /* բաց մինտ */
-  --deep-forest: #0a0f0a;         /* գրեթե սև կանաչավուն */
+  --primary-green: #0c701f;       
+  --dark-green: #074713;          
+
+  --emerald-green: #1fbf63;       
+  --mint-green: #6fe7a0;          
+  --deep-forest: #0a0f0a;         
   --dark-grey: #1a1a1a;
   --medium-grey: #2a2a2a;
   --light-grey: #88a088;
@@ -219,6 +220,7 @@ section:hover {
   overflow: hidden;
   box-shadow: var(--shadow-dark);
   transition: transform 0.3s ease;
+  aspect-ratio: 9/16s;
 }
 
 .video-item:hover {
@@ -575,11 +577,13 @@ b {
   }
 
   h1 {
-    margin: 2rem 0 1rem;
+    margin: 1.5rem 0 1rem;
   }
 
   h2 {
-    margin: 2rem 0 1rem;
+    margin: 0.9rem 0 1rem;
+    justify-content: center;
+    align-items: center;
   }
 }
 
