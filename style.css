@@ -540,6 +540,10 @@ b {
   font-weight: 700;
   color: var(--mint-green);
 }
+ 
+ .price {
+  font-size: 18px;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
